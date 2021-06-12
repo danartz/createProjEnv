@@ -15,6 +15,7 @@ printf "
     <meta charset="utf-8"> 
     <script src=\"https://unpkg.com/react@16/umd/react.development.js\"></script> 
     <script src=\"https://unpkg.com/react-dom@16/umd/react-dom.development.js\"></script> 
+    <script src=\"https://unpkg.com/@babel/polyfill@7/dist/polyfill.min.js\"></script>
     <title>Pro MERN Stack</title> 
   </head> 
   <body> 
@@ -44,13 +45,31 @@ const element = (
 ReactDOM.render(element, document.getElementById('contents'));
 " > src/App.jsx
 
-cp ../run_server.sh .
+printf "
+{
+ \"presets\": [
+    [\"@babel/preset-env\", {
+      \"targets\": {
+      \"ie\": \"11\",
+      \"edge\": \"15\",
+      \"safari\": \"10\",
+      \"firefox\": \"50\",
+      \"chrome\": \"49\"
+ }
+ }],
+ \"@babel/preset-react\"
+ ]
+}
+" > src/.babelrc
+
+cp ../environmentScripts/run_server.sh .
 
 npm install --save-dev @babel/core@7 @babel/cli@7
 node_modules/.bin/babel --version
 npm install --save-dev @babel/preset-react@7
 npx babel src --presets @babel/react --out-dir public
-
+npm install --save-dev @babel/preset-env@7
+npx babel
 echo "***Installation complete ****"
 
 
