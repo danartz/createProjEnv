@@ -60,16 +60,14 @@ printf "
  \"@babel/preset-react\"
  ]
 }
-" > src/.babelrc
-
+"
+cp ../environmentScripts/watchCompile.sh .
 cp ../environmentScripts/run_server.sh .
 
 npm install --save-dev @babel/core@7 @babel/cli@7
 node_modules/.bin/babel --version
-npm install --save-dev @babel/preset-react@7
-npx babel src --presets @babel/react --out-dir public
-npm install --save-dev @babel/preset-env@7
-npx babel
+npm install --save-dev @babel/preset-react
+npm install --save-dev webpack
 echo "***Installation complete ****"
 
 
